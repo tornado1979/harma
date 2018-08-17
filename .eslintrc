@@ -32,8 +32,9 @@
         "ignoreCase": true,
         "requiredFirst": false
     }],
-    "semi": ["error", "always"],
-    "quotes": ["error", "double"],
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
     "sort-keys": ["warn", "asc", {"caseSensitive": true, "natural": false}],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
