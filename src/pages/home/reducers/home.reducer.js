@@ -3,7 +3,7 @@ import {
   RECEIVE_INITIAL_DATA,
   RECEIVE_DATA,
   RECEIVE_DATA_FAIL,
-} from '../actionTypes/home.actionTypes'
+} from '../actionTypes'
 
 const initialState = {
   activePage: 0,
