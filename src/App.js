@@ -1,18 +1,22 @@
 import React, { Component, Fragment } from 'react'
-
+import { BrowserRouter as Router } from 'react-router-dom'
 import './App.scss'
 import {
   Header,
-  Main,
   Footer,
+  Routes,
 } from './components'
 
 class App extends Component {
   render() {
     return (
       <Fragment>
-        <Header />
-        <Main />
+        <Router>
+          <Fragment>
+            <Header />
+            <Routes />
+          </Fragment>
+        </Router>
         <Footer />
       </Fragment>
     )

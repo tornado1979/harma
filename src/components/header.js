@@ -1,47 +1,36 @@
 import React from 'react'
-import {
-  Navbar,
-  // Nav,
-  // NavItem,
-  FormGroup,
-  FormControl,
-} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 
 import './header.scss'
 
 import logo from '../assets/img/me.jpg'
 
 export const Header = () => {
-  const searchStyle = {
-    borderRadius: '20px',
-    width: '400px',
-  }
-
   return (
     <header>
-      <Navbar collapseOnSelect inverse>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#brand">
-              <img alt="logo goes here" className="img-circle" src={logo} />
-            </a>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Navbar.Form pullRight>
-            <FormGroup>
-              <FormControl placeholder="Search" style={searchStyle} type="text" />
-            </FormGroup>
-            <div className="nav-item">
-              <Link to="/login">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand" href="/">
+          <img alt="logo goes here" className="img-circle" src={logo} />
+        </a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" className="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+          <span className="navbar-toggler-icon">{' '}</span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <form className="form-inline my-2 my-lg-0 ml-auto">
+            <input aria-label="Search" className="form-control mr-sm-2" placeholder="Search" type="search" />
+          </form>
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <a className="nav-link" href="/login">
                 Login
-              </Link>
-            </div>
-          </Navbar.Form>
-        </Navbar.Collapse>
-      </Navbar>
+                <span className="sr-only">
+                  (current)
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
   )
 }
