@@ -1,11 +1,12 @@
 import React from 'react'
 import {
   Navbar,
-  Nav,
-  NavItem,
+  // Nav,
+  // NavItem,
   FormGroup,
   FormControl,
 } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 import './header.scss'
 
@@ -23,23 +24,22 @@ export const Header = () => {
         <Navbar.Header>
           <Navbar.Brand>
             <a href="#brand">
-              <img alt="logo goes here" src={logo} />
+              <img alt="logo goes here" className="img-circle" src={logo} />
             </a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav pullRight>
-            <Navbar.Form pullLeft>
-              <FormGroup>
-                <FormControl placeholder="Search" style={searchStyle} type="text" />
-              </FormGroup>
-              {' '}
-            </Navbar.Form>
-            <NavItem eventKey={1} href="#">
-              Login
-            </NavItem>
-          </Nav>
+          <Navbar.Form pullRight>
+            <FormGroup>
+              <FormControl placeholder="Search" style={searchStyle} type="text" />
+            </FormGroup>
+            <div className="nav-item">
+              <Link to="/login">
+                Login
+              </Link>
+            </div>
+          </Navbar.Form>
         </Navbar.Collapse>
       </Navbar>
     </header>
