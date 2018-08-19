@@ -15,6 +15,7 @@ import {
 
 import './home.scss'
 
+import { Loader } from '../../components/loader'
 import { Pagination } from '../../components/pagination'
 
 class Home extends Component {
@@ -88,9 +89,9 @@ class Home extends Component {
 
     if (items && items.length === 0) {
       return (
-        <h1>
-          {'No Data!List is empty'}
-        </h1>
+        <main>
+          <Loader />
+        </main>
       )
     }
 
