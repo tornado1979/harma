@@ -1,0 +1,25 @@
+.card-text {
+&.limit {
+  font-size: 15pt;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  }
+}
+
+div .btn {
+  margin: 10px;
+
+  &:nth-child(1) {
+    margin-left: 0;
+  }
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.pagination {
+  float: right;
+}
