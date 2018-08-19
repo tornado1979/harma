@@ -5,7 +5,7 @@ import './header.scss'
 
 import logo from '../assets/img/me.jpg'
 
-export const Header = ({ isUserLoggedIn }) => {
+export const Header = ({ isUserLoggedIn, changeHandler }) => {
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,7 +18,13 @@ export const Header = ({ isUserLoggedIn }) => {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <form className="form-inline my-2 my-lg-0 ml-auto">
-            <input aria-label="Search" className="form-control mr-sm-2" placeholder="Search" type="search" />
+            <input
+              aria-label="Search"
+              className="form-control mr-sm-2"
+              onChange={changeHandler}
+              placeholder="Search"
+              type="search"
+            />
           </form>
           <ul className="navbar-nav">
             <li className="nav-item active">
@@ -47,5 +53,6 @@ export const Header = ({ isUserLoggedIn }) => {
 }
 
 Header.propTypes = {
+  changeHandler: propTypes.func.isRequired,
   isUserLoggedIn: propTypes.bool.isRequired,
 }

@@ -3,11 +3,13 @@ import {
   REQUEST_DATA,
   RECEIVE_DATA,
   RECEIVE_DATA_FAIL,
+  SEARCH_DATA,
 } from '../actionTypes'
 
 const initialState = {
   activePage: 1,
   error: '',
+  immuteData: [], // loads at first and serve for the searching
   isFetching: false,
   items: [],
   itemsPerPage: 2,
@@ -16,6 +18,12 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SEARCH_DATA:
+      return {
+        ...state,
+        items: [...action.payload.data],
+        totalPages: action.payload.totalPages,
+      }
     case CHANGE_ACTIVE_PAGE:
       return {
         ...state,
@@ -32,6 +40,7 @@ export const reducer = (state = initialState, action) => {
 
       return {
         ...state,
+        immuteData: [...action.payload.data],
         isFetching: action.payload.isFetching,
         items: [...action.payload.data],
         totalPages,

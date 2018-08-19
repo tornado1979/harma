@@ -10,7 +10,6 @@ import {
 } from './actionCreators'
 
 import {
-  getItems,
   getItemsByPageNumber,
 } from './selectors'
 
@@ -86,6 +85,14 @@ class Home extends Component {
         </div>
       )
     })
+
+    if (items && items.length === 0) {
+      return (
+        <h1>
+          {'No Data!List is empty'}
+        </h1>
+      )
+    }
 
     return (
       <main>
