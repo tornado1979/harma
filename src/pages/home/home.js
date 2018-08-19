@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux'
 import propTypes from 'prop-types'
 
 import {
-  fetchInitialData,
+  changeActivePage,
+  fetchData,
 } from './actionCreators'
 
 import {
   getItems,
+  getItemsByPageNumber,
 } from './selectors'
 
 import './home.scss'
@@ -16,10 +18,6 @@ import './home.scss'
 import { Pagination } from '../../components/pagination'
 
 class Home extends Component {
-  state = {
-    activePage: 1,
-  }
-
   componentDidMount() {
     // get data from server
     const {
@@ -29,37 +27,53 @@ class Home extends Component {
     getData()
   }
 
-  // change active page and update local state
+  // change the active page, on the central state
   changePage = (aPage) => {
-    this.setState((prevState, props) => {
-      return {
-        activePage: aPage === 'next' ? prevState.activePage +1 : aPage === 'prev' ? prevState.activePage -1 : aPage, // eslint-disable-line
-      }
-    })
+    const {
+      otherPage, // actionCreator
+      data: {
+        activePage: prevActivePage,
+      },
+    } = this.props
+
+    /* eslint-disable  no-nested-ternary */
+    const actPage = aPage === 'next'
+      ? prevActivePage + 1
+      : aPage === 'prev'
+        ? prevActivePage - 1
+        : aPage
+
+    otherPage(actPage) // dispatch CHANGE_ACTIVE_PAGE
+  }
+
+  pageByNumber = () => {
+    const { data } = this.props
+    data(5)
   }
 
   render() {
     const {
       data: {
+        activePage,
         items,
+        itemsPerPage,
         totalPages,
       },
     } = this.props
 
-    const {
-      activePage,
-    } = this.state
-
-    const articles = items.slice(0, 5).map((item, idx) => {
+    const articles = items && items.slice(0, itemsPerPage).map((item, idx) => {
       return (
         <div className="row" key={idx}>
           <div className="col-sm-12">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">{item.title}</h5>
+                <h5 className="card-title">
+                  {item.id}
+                  {item.title}
+                </h5>
                 <p className="card-text limit">{item.description}</p>
                 <div style={{ textAlign: 'right' }}>
-                  <a className="btn btn-primary" href="#">View</a>
+                  <a className="btn btn-primary" href="#" onClick={this.pageByNumber}>View</a>
                   <a className="btn btn-info" href="#">Edit</a>
                   <a className="btn btn-danger" href="#">Delete</a>
                 </div>
@@ -72,8 +86,8 @@ class Home extends Component {
 
     return (
       <main>
-        {items.length > 0 && articles}
-        {items.length > 0 && (
+        {items && items.length > 0 && articles}
+        {items && items.length > 0 && (
           <Pagination
             activePage={activePage}
             handleClick={(aPage, ev) => this.changePage(aPage, ev)}
@@ -92,17 +106,24 @@ Home.propTypes = {
     items: [],
     totalPages: 0,
   }).isRequired,
-  getData: propTypes.func.isRequired, // eslint-disable-line
+  getData: propTypes.func.isRequired,
+  otherPage: propTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const {
+    activePage,
+    itemsPerPage,
+  } = state.data
+
   return {
-    data: getItems(state),
+    data: getItemsByPageNumber({ activePage, itemsPerPage }, state),
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getData: fetchInitialData,
+  getData: fetchData, // dispatch REQUEST_DATA
+  otherPage: changeActivePage, // dispatch CHANGE_ACTIVE_PAGE
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

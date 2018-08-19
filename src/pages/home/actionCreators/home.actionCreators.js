@@ -1,15 +1,22 @@
 import axios from 'axios'
 
 import {
+  CHANGE_ACTIVE_PAGE,
   REQUEST_DATA,
-  RECEIVE_INITIAL_DATA,
+  RECEIVE_DATA,
   RECEIVE_DATA_FAIL,
 } from '../actionTypes'
 
 import {
-  ARTICLES_PER_PAGE,
   DATA_API_ENDPOINT,
 } from '../../../constants/constants'
+
+export const changeActivePage = (num) => {
+  return {
+    payload: num,
+    type: CHANGE_ACTIVE_PAGE,
+  }
+}
 
 export const requestData = () => {
   return {
@@ -21,16 +28,12 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
-  const numberofItems = data.length
-  const totalPages = Math.ceil(numberofItems / ARTICLES_PER_PAGE)
-
   return {
     payload: {
       data,
       isFetching: false,
-      totalPages,
     },
-    type: RECEIVE_INITIAL_DATA,
+    type: RECEIVE_DATA,
   }
 }
 
@@ -44,7 +47,7 @@ export const receiveDataError = (error) => (
   }
 )
 
-export const fetchInitialData = () => dispatch => {
+export const fetchData = () => dispatch => {
   dispatch(requestData())
 
   return axios.get(DATA_API_ENDPOINT)

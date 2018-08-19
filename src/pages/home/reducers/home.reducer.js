@@ -1,40 +1,42 @@
 import {
+  CHANGE_ACTIVE_PAGE,
   REQUEST_DATA,
-  RECEIVE_INITIAL_DATA,
   RECEIVE_DATA,
   RECEIVE_DATA_FAIL,
 } from '../actionTypes'
 
 const initialState = {
-  activePage: 0,
+  activePage: 1,
   error: '',
   isFetching: false,
   items: [],
+  itemsPerPage: 6,
   totalPages: 0,
 }
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case CHANGE_ACTIVE_PAGE:
+      return {
+        ...state,
+        activePage: action.payload,
+      }
     case REQUEST_DATA:
       return {
         ...state,
         isFetching: action.payload.isFetching,
       }
-    case RECEIVE_INITIAL_DATA:
+    case RECEIVE_DATA: {
+      const numberofItems = action.payload.data.length
+      const totalPages = Math.ceil(numberofItems / state.itemsPerPage)
+
       return {
         ...state,
+        isFetching: action.payload.isFetching,
         items: [...action.payload.data],
-        totalPages: action.payload.totalPages,
+        totalPages,
       }
-    case RECEIVE_DATA:
-      return {
-        ...action.payload,
-        items: {
-          activePage: action.payload.activePage,
-          displayData: [...action.payload.data.displayData],
-          isFetching: action.payload.isFetching,
-        },
-      }
+    }
     case RECEIVE_DATA_FAIL:
       return {
         ...state,

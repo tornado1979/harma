@@ -1,8 +1,30 @@
 import { createSelector } from 'reselect'
 
-const getLocalState = state => state.data
+// get localstate
+const getLocalState = state => {
+  return state.data
+}
 
+// get all items
 export const getItems = createSelector(
   getLocalState,
-  data => data,
+  data => {
+    return data || {}
+  },
+)
+
+// get data by  activePage, itemsPerPage
+export const getItemsByPageNumber = createSelector(
+  ({ activePage, itemsPerPage }) => {
+    return { activePage, itemsPerPage }
+  },
+  ({ activePage, itemsPerPage }, state) => getItems(state),
+  ({ activePage, itemsPerPage }, data) => {
+    const from = activePage === 1 ? 0 : ((activePage - 1) * itemsPerPage)
+    const to = (from + itemsPerPage)
+    return {
+      ...data,
+      items: data.items.slice(from, to),
+    }
+  },
 )
