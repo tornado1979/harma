@@ -10,7 +10,7 @@ const initialState = {
   error: '',
   isFetching: false,
   items: [],
-  itemsPerPage: 6,
+  itemsPerPage: 2,
   totalPages: 0,
 }
 

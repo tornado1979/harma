@@ -9,7 +9,12 @@ import thunk from 'redux-thunk'
 
 import {
   reducer as homeReducer,
-} from './pages/home/reducers/home.reducer'
+} from './pages/home/reducers'
+
+import {
+  reducer as userReducer,
+} from './pages/login/reducers'
+
 
 import actionsLogMiddleware from './middlewares/actionsLogger'
 
@@ -36,6 +41,7 @@ const composedEnhancers = compose(
 
 const rootReducers = combineReducers({
   data: homeReducer,
+  user: userReducer,
 })
 
 const store = createStore(

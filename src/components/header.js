@@ -1,10 +1,11 @@
 import React from 'react'
+import propTypes from 'prop-types'
 
 import './header.scss'
 
 import logo from '../assets/img/me.jpg'
 
-export const Header = () => {
+export const Header = ({ isUserLoggedIn }) => {
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,16 +22,30 @@ export const Header = () => {
           </form>
           <ul className="navbar-nav">
             <li className="nav-item active">
+              {!isUserLoggedIn
+              && (
               <a className="nav-link" href="/login">
                 Login
                 <span className="sr-only">
                   (current)
                 </span>
-              </a>
+              </a>)}
+              {isUserLoggedIn
+              && (
+              <a className="nav-link" href="/">
+                Logout
+                <span className="sr-only">
+                  (current)
+                </span>
+              </a>)}
             </li>
           </ul>
         </div>
       </nav>
     </header>
   )
+}
+
+Header.propTypes = {
+  isUserLoggedIn: propTypes.bool.isRequired,
 }

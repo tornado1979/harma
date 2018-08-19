@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import propTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import {
   changeActivePage,
@@ -46,11 +47,6 @@ class Home extends Component {
     otherPage(actPage) // dispatch CHANGE_ACTIVE_PAGE
   }
 
-  pageByNumber = () => {
-    const { data } = this.props
-    data(5)
-  }
-
   render() {
     const {
       data: {
@@ -62,6 +58,7 @@ class Home extends Component {
     } = this.props
 
     const articles = items && items.slice(0, itemsPerPage).map((item, idx) => {
+      const to = `/info/${item.id}`
       return (
         <div className="row" key={idx}>
           <div className="col-sm-12">
@@ -73,8 +70,14 @@ class Home extends Component {
                 </h5>
                 <p className="card-text limit">{item.description}</p>
                 <div style={{ textAlign: 'right' }}>
-                  <a className="btn btn-primary" href="#" onClick={this.pageByNumber}>View</a>
-                  <a className="btn btn-info" href="#">Edit</a>
+                  <a className="btn btn-info" href="#">
+                    <Link to={to}>
+                      View
+                    </Link>
+                  </a>
+                  <a className="btn btn-primary" href="#">
+                    Edit
+                  </a>
                   <a className="btn btn-danger" href="#">Delete</a>
                 </div>
               </div>

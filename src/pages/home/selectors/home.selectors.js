@@ -28,3 +28,14 @@ export const getItemsByPageNumber = createSelector(
     }
   },
 )
+
+// get item by id
+export const getItemById = createSelector(
+  (itemId) => itemId,
+  (itemId, state) => getItems(state),
+  (itemId, data) => {
+    const itemArr = data.items.filter(item => item.id === Number(itemId))
+    console.log('*****', itemArr)
+    return itemArr.length === 0 ? null : itemArr[0]
+  },
+)

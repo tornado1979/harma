@@ -1,34 +1,50 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import propTypes from 'prop-types'
 
 import {
   Route,
   Redirect,
 } from 'react-router-dom'
 
-const fakeAuth = {
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100)
-  },
-  isAuthenticated: false,
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
-  },
-}
+import { isAuthenticated } from '../pages/login/selectors'
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => (
-      fakeAuth.isAuthenticated ? (<Component {...props} />
-      ) : (<Redirect
+class PrivateRoute extends React.Component {
+  render() {
+    const {
+      component: Component,
+      isUserLoggedIn,
+      location,
+      ...rest
+    } = this.props
+    if (isUserLoggedIn) {
+      return (
+        <Route
+          {...rest}
+          render={(props) => (
+            <Component {...props} />
+          )}
+        />
+      )
+    }
+    return (
+      <Redirect
         to={{
           pathname: '/login',
-          state: { from: props.location },
+          state: { from: location },
         }}
-      />
-      ))
-    }
-  />
-)
+      />)
+  }
+}
+
+PrivateRoute.propTypes = {
+  isUserLoggedIn: propTypes.bool.isRequired,
+}
+
+const mapStateToProps = (state) => {
+  return {
+    isUserLoggedIn: isAuthenticated(state),
+  }
+}
+
+export default connect(mapStateToProps, null)(PrivateRoute)
