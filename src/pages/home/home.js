@@ -13,7 +13,13 @@ import {
 
 import './home.scss'
 
+import { Pagination } from '../../components/pagination'
+
 class Home extends Component {
+  state = {
+    activePage: 1,
+  }
+
   componentDidMount() {
     // get data from server
     const {
@@ -23,12 +29,26 @@ class Home extends Component {
     getData()
   }
 
+  // change active page and update local state
+  changePage = (aPage) => {
+    this.setState((prevState, props) => {
+      return {
+        activePage: aPage === 'next' ? prevState.activePage +1 : aPage === 'prev' ? prevState.activePage -1 : aPage, // eslint-disable-line
+      }
+    })
+  }
+
   render() {
     const {
       data: {
         items,
+        totalPages,
       },
     } = this.props
+
+    const {
+      activePage,
+    } = this.state
 
     const articles = items.slice(0, 5).map((item, idx) => {
       return (
@@ -49,20 +69,16 @@ class Home extends Component {
         </div>
       )
     })
-    const pagination = (
-      <ul className="pagination">
-        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-        <li className="page-item"><a className="page-link" href="#">1</a></li>
-        <li className="page-item active"><a className="page-link" href="#">2</a></li>
-        <li className="page-item"><a className="page-link" href="#">3</a></li>
-        <li className="page-item"><a className="page-link" href="#">Next</a></li>
-      </ul>
-    )
 
     return (
       <main>
         {items.length > 0 && articles}
-        {items.length > 0 && pagination}
+        {items.length > 0 && (
+          <Pagination
+            activePage={activePage}
+            handleClick={(aPage, ev) => this.changePage(aPage, ev)}
+            numPages={totalPages}
+          />)}
       </main>
     )
   }
