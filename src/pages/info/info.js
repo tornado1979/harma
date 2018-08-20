@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { getItemById } from '../home/selectors'
-
+import sampleChart from '../../assets/img/sample.png'
 import './info.scss'
 
 class Info extends Component {
@@ -69,7 +69,7 @@ class Info extends Component {
                   <div className="card-image">
                     <img alt="item" src={itemInfo.thumbnailUrl} />
                   </div>
-                  <div className="card-chart">{itemInfo.description}</div>
+                  <div className="card-chart"><img alt="item" src={sampleChart} /></div>
                 </div>
               </div>
             </div>
