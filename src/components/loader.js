@@ -4,7 +4,7 @@ import loader from '../assets/img/loader.gif'
 export const Loader = () => {
   return (
     <div>
-      <img alt="wait while page loading" src={loader} />
+      <img alt="wait while page loading" src={loader} style={{ width: '100%' }} />
     </div>
   )
 }
