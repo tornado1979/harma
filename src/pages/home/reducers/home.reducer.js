@@ -12,7 +12,7 @@ const initialState = {
   immuteData: [], // loads at first and serve for the searching
   isFetching: false,
   items: [],
-  itemsPerPage: 2,
+  itemsPerPage: 8,
   totalPages: 0,
 }
 
