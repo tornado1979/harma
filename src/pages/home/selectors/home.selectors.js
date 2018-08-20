@@ -5,6 +5,14 @@ const getLocalState = state => {
   return state.data
 }
 
+// get immutable data
+export const getImmuteData = createSelector(
+  getLocalState,
+  data => {
+    return (data && data.immuteData) || {}
+  },
+)
+
 // get all items
 export const getItems = createSelector(
   getLocalState,
@@ -18,7 +26,7 @@ export const getItemsByPageNumber = createSelector(
   ({ activePage, itemsPerPage }) => {
     return { activePage, itemsPerPage }
   },
-  ({ activePage, itemsPerPage }, state) => getItems(state),
+  ({ activePage, itemsPerPage }, state) => getItems(state), // eslint-disable-line
   ({ activePage, itemsPerPage }, data) => {
     const from = activePage === 1 ? 0 : ((activePage - 1) * itemsPerPage)
     const to = (from + itemsPerPage)

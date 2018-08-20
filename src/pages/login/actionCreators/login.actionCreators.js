@@ -1,5 +1,4 @@
 import {
-  LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
   REQUEST_LOGIN,
@@ -15,8 +14,8 @@ const requestlogin = () => {
 const loginSuccess = ({ email, password }) => {
   return {
     payload: {
-      isAuthenticated: true,
       email,
+      isAuthenticated: true,
       password,
     },
     type: LOGIN_SUCCESS,

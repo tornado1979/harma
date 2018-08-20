@@ -10,6 +10,7 @@ import {
 } from './actionCreators'
 
 import {
+  getImmuteData,
   getItemsByPageNumber,
 } from './selectors'
 
@@ -51,6 +52,7 @@ class Home extends Component {
     const {
       data: {
         activePage,
+        immuteData,
         items,
         itemsPerPage,
         totalPages,
@@ -87,7 +89,9 @@ class Home extends Component {
       )
     })
 
-    if (items && items.length === 0) {
+    // if immuteData & items are empty, then loader
+    if ((items && items.length === 0)
+     && (immuteData && immuteData.length === 0)) {
       return (
         <main>
           <Loader />
@@ -121,7 +125,7 @@ Home.propTypes = {
   otherPage: propTypes.func.isRequired,
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   const {
     activePage,
     itemsPerPage,
@@ -129,6 +133,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     data: getItemsByPageNumber({ activePage, itemsPerPage }, state),
+    immuteData: getImmuteData(state),
   }
 }
 

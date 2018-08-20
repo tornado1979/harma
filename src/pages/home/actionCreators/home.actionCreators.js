@@ -61,7 +61,6 @@ export const fetchData = () => dispatch => {
       dispatch(receiveData(data))
     })
     .catch((err) => {
-      console.log('error:', err)
       dispatch(receiveDataError(err))
     })
 }
