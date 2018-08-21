@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { getItemById } from '../home/selectors'
-import sampleChart from '../../assets/img/sample.png'
+
 import './info.scss'
+import HorisontalBarChart from './horizontal'
 
 class Info extends Component {
   state = {
@@ -54,11 +55,11 @@ class Info extends Component {
             <div className="card">
               <div className="card-body">
                 <div style={{ textAlign: 'right' }}>
-                  <a className="btn btn-success" href="#" onClick={this.pageByNumber}>
+                  <button className="btn btn-success" type="button" onClick={this.pageByNumber}>
                     <Link to="/">
                       Back
                     </Link>
-                  </a>
+                  </button>
                 </div>
                 <h5 className="card-title">
                   {itemInfo.id}
@@ -69,7 +70,12 @@ class Info extends Component {
                   <div className="card-image">
                     <img alt="item" src={itemInfo.thumbnailUrl} />
                   </div>
-                  <div className="card-chart"><img alt="item" src={sampleChart} /></div>
+                  <div className="card-chart">
+                    <div style={{ textAlign: 'center' }}>Horizontal bar chart - Target: 546</div>
+                    <HorisontalBarChart
+                      data={itemInfo.data}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
