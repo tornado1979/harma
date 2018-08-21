@@ -8,10 +8,10 @@ import Axis from './axis'
 import './bar-chart.scss'
 
 const OFFSETS = {
-  top: 50,
   bottom: 50,
   left: 100,
   right: 50,
+  top: 50,
 }
 
 class HorisontalBarChart extends React.Component {

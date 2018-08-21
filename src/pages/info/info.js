@@ -55,7 +55,7 @@ class Info extends Component {
             <div className="card">
               <div className="card-body">
                 <div style={{ textAlign: 'right' }}>
-                  <button className="btn btn-success" type="button" onClick={this.pageByNumber}>
+                  <button className="btn btn-success" onClick={this.pageByNumber} type="button">
                     <Link to="/">
                       Back
                     </Link>

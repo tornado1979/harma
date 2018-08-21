@@ -6,19 +6,15 @@ import { Loader } from '../../components/loader'
 // With HOC
 const WithSize = Child => class extends React.Component {
   state = {
-    width: null,
     height: null,
     isLoading: false,
-  }
-
-  constructor(props) {
-    super(props)
-    this.setSize = this.setSize.bind(this)
+    width: null,
   }
 
   componentDidMount() {
     this.setState({ isLoading: true })
 
+    // add a 2sec delay until it loads the DOM
     setTimeout(() => {
       this.setSize()
       window.addEventListener('resize', this.setSize)
@@ -33,7 +29,7 @@ const WithSize = Child => class extends React.Component {
   setSize = () => {
     const width = ReactDOM.findDOMNode(this).clientWidth // eslint-disable-line
     const height = ReactDOM.findDOMNode(this).clientHeight // eslint-disable-line
-    this.setState({ width, height })
+    this.setState({ height, width })
   }
 
   render() {
@@ -44,8 +40,8 @@ const WithSize = Child => class extends React.Component {
     }
 
     return (
-      <div style={{ width: '100%', height: '100%' }}>
-        {width && height ? <Child width={width} height={height} {...this.props} /> : null}
+      <div style={{ height: '100%', width: '100%' }}>
+        {width && height ? <Child height={height} width={width} {...this.props} /> : null}
       </div>
     )
   }

@@ -72,11 +72,11 @@ class Home extends Component {
                 </h5>
                 <p className="card-text limit">{item.description}</p>
                 <div style={{ textAlign: 'right' }}>
-                  <a className="btn btn-info" href="#">
+                  <button className="btn btn-info" type="button">
                     <Link to={to}>
                       View
                     </Link>
-                  </a>
+                  </button>
                   <a className="btn btn-primary" href="#">
                     Edit
                   </a>
